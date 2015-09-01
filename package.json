@@ -1,5 +1,9 @@
 {
   "name": "universal-react-starter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hilzu/universal-react-starter.git"
+  },
   "babel": {
     "optional": [
       "es7.classProperties"
