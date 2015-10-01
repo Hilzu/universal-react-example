@@ -24,9 +24,12 @@ app.all('*', (req, res, next) => {
     if (redirectLocation) {
       res.redirect(301, redirectLocation.pathname + redirectLocation.search);
     } else if (err) {
-      res.status(500).send(err.message);
+      next(err);
     } else if (renderProps == null) {
-      res.status(404).send('Not found');
+      app.render('404', (err, html) => {
+        if (err) return next(err);
+        res.status(404).render('base', { title: 'Not found', body: html });
+      })
     } else {
       var pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />);
       app.render('page', { content: pageContent }, (err, pageHtml) => {
@@ -43,5 +46,8 @@ export default app;
 
 function errorHandler (err, req, res, next) {
   console.error(err.stack);
-  res.status(500).send('Internal system error!');
+  app.render('500', { errorMessage: err.message }, (err, html) => {
+    if (err) res.status(500).send(err.message);
+    res.render('base', { title: 'Internal server error!', body: html });
+  })
 }
