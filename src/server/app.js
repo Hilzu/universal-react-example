@@ -22,21 +22,19 @@ app.all('*', (req, res, next) => {
 
   match({ routes, location }, (err, redirectLocation, renderProps) => {
     if (redirectLocation) {
-      res.redirect(301, redirectLocation.pathname + redirectLocation.search);
-    } else if (err) {
-      next(err);
-    } else if (renderProps == null) {
-      app.render('404', (err, html) => {
-        if (err) return next(err);
-        res.status(404).render('base', { title: 'Not found', body: html });
-      })
-    } else {
-      var pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />);
-      app.render('page', { content: pageContent }, (err, pageHtml) => {
-        if (err) return next(err);
-        res.render('base', { title: 'Hello world!', body: pageHtml });
-      });
+      return res.redirect(301, redirectLocation.pathname + redirectLocation.search);
     }
+    if (err) {
+      return next(err);
+    }
+    if (renderProps == null || renderProps.routes[0].path === '*') {
+      res.status(404);
+    }
+    var pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />);
+    app.render('page', { content: pageContent }, (err, pageHtml) => {
+      if (err) return next(err);
+      res.render('base', { title: 'Hello world!', body: pageHtml });
+    });
   });
 });
 
