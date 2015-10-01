@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import cons from 'consolidate';
 import App from '../components/App';
 
@@ -12,7 +13,7 @@ app.set('view engine', 'mustache');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res, next) => {
-  app.render('page', { content: React.renderToString(<App />) }, (err, pageHtml) => {
+  app.render('page', { content: ReactDOMServer.renderToString(<App />) }, (err, pageHtml) => {
     if (err) return next(err);
     res.render('base', { title: 'Hello World!', body: pageHtml });
   });
