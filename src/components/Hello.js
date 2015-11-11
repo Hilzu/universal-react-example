@@ -1,9 +1,7 @@
 import React from 'react';
 
-module.exports = class Hello extends React.Component {
-  render () {
-    return <div>
-      <h1>Hello!</h1>
-    </div>;
-  }
+export default function Hello () {
+  return <div>
+    <h1>Hello!</h1>
+  </div>
 }

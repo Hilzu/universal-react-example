@@ -1,10 +1,14 @@
 import React from 'react';
 
-module.exports = class Clicker extends React.Component {
-  constructor () {
-    super();
-    this.state = { n: 0 };
-  }
+const Clicker = React.createClass({
+  getInitialState: () => ({
+    n: 0
+  }),
+
+  handleClick () {
+    console.log('handleClick', this);
+    this.setState({ n: this.state.n + 1 });
+  },
 
   render () {
     return <div className="clicker">
@@ -12,8 +16,6 @@ module.exports = class Clicker extends React.Component {
       <button onClick={this.handleClick}>Click me!</button>
     </div>;
   }
+})
 
-  handleClick = () => {
-    this.setState({ n: this.state.n + 1 });
-  }
-}
+export default Clicker;
