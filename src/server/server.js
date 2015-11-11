@@ -1,5 +1,5 @@
-require('babel/register');
-const app = require('./app');
+require('babel-core/register');
+const app = require('./app').default;
 
 const port = process.env.PORT || 3000;
 const host = 'localhost';

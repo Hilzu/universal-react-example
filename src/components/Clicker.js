@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class Clicker extends React.Component {
+module.exports = class Clicker extends React.Component {
   constructor () {
     super();
     this.state = { n: 0 };
