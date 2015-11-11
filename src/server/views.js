@@ -1,3 +1,5 @@
+/*eslint-disable standard/object-curly-even-spacing */
+
 const basePage = (head, body) => `
 <!DOCTYPE html>
 <html lang="en">
@@ -30,4 +32,4 @@ const errorPage = (errorMsg) => page('Internal server error!', `
 <pre>${errorMsg}</pre>
 `)
 
-export default { basePage, baseHead, baseBody, page, errorPage }
+export default { basePage, baseHead, baseBody, page, errorPage}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Clicker = React.createClass({
   getInitialState: () => ({
@@ -6,16 +6,16 @@ const Clicker = React.createClass({
   }),
 
   handleClick () {
-    console.log('handleClick', this);
-    this.setState({ n: this.state.n + 1 });
+    console.log('handleClick', this)
+    this.setState({ n: this.state.n + 1 })
   },
 
   render () {
-    return <div className="clicker">
+    return <div className='clicker'>
       <h1>Clicked {this.state.n} times</h1>
       <button onClick={this.handleClick}>Click me!</button>
-    </div>;
+    </div>
   }
 })
 
-export default Clicker;
+export default Clicker

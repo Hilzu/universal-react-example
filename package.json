@@ -12,6 +12,7 @@
   "scripts": {
     "build": "NODE_ENV=production browserify src/client/client.js > public/bundle.js",
     "start": "nodemon src/server/server.js",
+    "test": "standard",
     "watch": "watchify src/client/client.js -o public/bundle.js -dv"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "babelify": "^7.2.0",
     "browserify": "^12.0.1",
     "nodemon": "^1.4.1",
+    "standard": "^5.3.1",
     "watchify": "^3.2.3"
   }
 }
