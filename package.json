@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production browserify src/client/client.js > public/bundle.js",
-    "start": "nodemon src/server/server.js",
+    "start": "nodemon src/server/index.js",
     "test": "standard",
     "watch": "watchify src/client/client.js -o public/bundle.js -dv"
   },
