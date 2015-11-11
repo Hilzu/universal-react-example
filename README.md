@@ -1,8 +1,8 @@
-# Universal-react-starter
+# Universal-react-example
 
-Simple [universal][universal] [React][react] starter kit using [Babel][babel] for next generation JavaScript and JSX.
+Simple [universal][universal] [React][react] example using [Babel][babel] for next generation JavaScript and JSX.
 Uses [Browserify][browserify] for browser bundling and simple [npm run scripts][npmrun] for build automation.
-Based on [React starter][react-starter] by [Substack][substack].
+Loosely based on [React starter][react-starter] by [Substack][substack].
 
 # Quick start
 
