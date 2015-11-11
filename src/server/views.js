@@ -1,4 +1,4 @@
-/*eslint-disable standard/object-curly-even-spacing */
+/* eslint-disable standard/object-curly-even-spacing */
 
 const basePage = (head, body) => `
 <!DOCTYPE html>
@@ -33,3 +33,5 @@ const errorPage = (errorMsg) => page('Internal server error!', `
 `)
 
 export default { basePage, baseHead, baseBody, page, errorPage}
+
+/* eslint-enable standard/object-curly-even-spacing */
