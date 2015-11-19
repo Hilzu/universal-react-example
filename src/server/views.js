@@ -19,9 +19,7 @@ ${extraHead}
 `
 
 const baseBody = (content) => `
-<div id="content">
-  ${content}
-</div>
+<div id="content">${content}</div>
 <script src="/public/bundle.js"></script>
 `
 
