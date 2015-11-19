@@ -6,7 +6,6 @@ const Clicker = React.createClass({
   }),
 
   handleClick () {
-    console.log('handleClick', this)
     this.setState({ n: this.state.n + 1 })
   },
 
