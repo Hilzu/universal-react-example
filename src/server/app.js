@@ -5,6 +5,7 @@ import createLocation from 'history/lib/createLocation'
 import { RoutingContext, match } from 'react-router'
 import routes from '../routes'
 import views from './views'
+import { DataRoot, loadInitialFromComponents } from '../InitialDataLoad'
 
 const app = express()
 
@@ -23,10 +24,18 @@ app.all('*', (req, res, next) => {
       return next(err)
     }
     if (renderProps == null || renderProps.routes[0].path === '*') {
-      res.status(404)
+      const pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
+      return res.status(404).send(views.page('Not found', pageContent))
     }
-    var pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
-    res.send(views.page('Hello world!', pageContent))
+    loadInitialFromComponents(renderProps.components)
+      .then((initialData) => {
+        const pageContent = ReactDOMServer.renderToString(
+          <DataRoot initialData={initialData} component={RoutingContext} {...renderProps} />)
+        const initialDataForBrowser = views.script(
+          { content: JSON.stringify(initialData), id: 'initialData', type: 'application/json' })
+        res.send(views.page('Hello world!', pageContent, { extraBody: initialDataForBrowser }))
+      })
+      .catch((err) => next(err))
   })
 })
 
