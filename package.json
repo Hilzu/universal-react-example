@@ -6,7 +6,11 @@
   },
   "browserify": {
     "transform": [
-      "babelify"
+      [
+        "babelify", {
+          "sourceMapRelative": "."
+        }
+      ]
     ]
   },
   "scripts": {
