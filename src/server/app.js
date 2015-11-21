@@ -45,5 +45,6 @@ export default app
 
 function errorHandler (err, req, res, next) {
   console.error(err.stack)
+  if (err.response) console.error('Error response:', err.response.status, err.response.url, err.response.statusText)
   res.status(500).send(views.errorPage(err.message))
 }
