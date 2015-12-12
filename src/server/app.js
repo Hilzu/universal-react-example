@@ -3,9 +3,11 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import createLocation from 'history/lib/createLocation'
 import { RoutingContext, match } from 'react-router'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from '../reducers'
 import routes from '../routes'
 import views from './views'
-import { DataRoot, loadInitialFromComponents } from '../InitialDataLoad'
 
 const app = express()
 
@@ -27,15 +29,13 @@ app.all('*', (req, res, next) => {
       const pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
       return res.status(404).send(views.page('Not found', pageContent))
     }
-    loadInitialFromComponents(renderProps.components)
-      .then((initialData) => {
-        const pageContent = ReactDOMServer.renderToString(
-          <DataRoot initialData={initialData} component={RoutingContext} {...renderProps} />)
-        const initialDataForBrowser = views.script(
-          { content: JSON.stringify(initialData), id: 'initialData', type: 'application/json' })
-        res.send(views.page('Hello world!', pageContent, { extraBody: initialDataForBrowser }))
-      })
-      .catch((err) => next(err))
+    const store = createStore(reducer)
+    const pageContent = ReactDOMServer.renderToString(
+      <Provider store={store}>
+        <RoutingContext {...renderProps} />
+      </Provider>
+    )
+    res.send(views.page('Hello world!', pageContent))
   })
 })
 

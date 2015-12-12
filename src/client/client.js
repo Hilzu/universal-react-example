@@ -1,13 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
 import { Router } from 'react-router'
+import { Provider } from 'react-redux'
+import { syncReduxAndRouter } from 'redux-simple-router'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import routes from '../routes'
-import { DataRoot, loadInitialForBrowser } from '../InitialDataLoad'
+import reducer from '../reducers'
 
-const initialData = loadInitialForBrowser()
+const store = createStore(reducer)
+const history = createBrowserHistory()
+
+syncReduxAndRouter(history, store)
 
 ReactDOM.render(
-  <DataRoot initialData={initialData} component={Router} history={createBrowserHistory()} routes={routes} />,
+  <Provider store={store}>
+    <Router routes={routes} history={history} />
+  </Provider>,
   document.getElementById('content')
 )

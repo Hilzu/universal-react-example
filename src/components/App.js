@@ -1,6 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Nav from './Nav'
-import { createDataContainer } from '../InitialDataLoad'
 
 const App = React.createClass({
   propTypes: {
@@ -18,8 +18,8 @@ const App = React.createClass({
   }
 })
 
-export default createDataContainer(App, {
-  luckyNumber: new Promise((resolve, reject) => {
-    resolve(777)
-  })
+const mapStateToProps = (state) => ({
+  luckyNumber: state.luckyNumber
 })
+
+export default connect(mapStateToProps)(App)
