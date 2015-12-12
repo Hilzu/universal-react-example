@@ -28,7 +28,7 @@ ${extraBody}
 const page = (title, content, { extraBody = '' } = {}) =>
   basePage(baseHead(title), baseBody(content, extraBody))
 
-const errorPage = (errorMsg) => page('Internal server error!', `
+const errorPage = (errorMsg) => basePage(baseHead('Internal server error!'), `
 <h1>Internal server error</h1>
 <pre>${errorMsg}</pre>
 `)
