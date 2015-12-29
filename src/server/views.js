@@ -22,7 +22,7 @@ ${extraHead}
 const baseBody = (content, extraBody = '') => `
 <div id="content">${content}</div>
 ${extraBody}
-<script src="/public/bundle.js"></script>
+<script src="/js/bundle.js"></script>
 `
 
 const page = (title, content, { extraBody = '' } = {}) =>

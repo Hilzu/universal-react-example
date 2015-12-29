@@ -13,7 +13,7 @@ const app = express()
 
 app.set('x-powered-by', false)
 
-app.use('/public', express.static('public'))
+app.use(express.static('public'))
 
 app.all('*', (req, res, next) => {
   const location = createLocation(req.url)

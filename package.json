@@ -15,10 +15,10 @@
     ]
   },
   "scripts": {
-    "build": "NODE_ENV=production browserify src/client/client.js > public/bundle.js",
+    "build": "NODE_ENV=production browserify src/client/client.js > public/js/bundle.js",
     "start": "nodemon -w src/ --ignore src/client -x 'node -r babel-core/register src/server/server.js'",
     "test": "eslint .",
-    "watch": "watchify src/client/client.js -o public/bundle.js -dv"
+    "watch": "watchify src/client/client.js -o public/js/bundle.js -dv"
   },
   "dependencies": {
     "babel-core": "^6.1.4",
