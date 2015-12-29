@@ -16,15 +16,15 @@
   },
   "scripts": {
     "build": "NODE_ENV=production browserify src/client/client.js > public/js/bundle.js",
-    "start": "nodemon -w src/ --ignore src/client -x 'node -r babel-core/register src/server/server.js'",
+    "start": "nodemon -w src/ --ignore src/client -x 'node -r babel-register src/server/server.js'",
     "test": "eslint .",
     "watch": "watchify src/client/client.js -o public/js/bundle.js -dv"
   },
   "dependencies": {
-    "babel-core": "^6.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.1.4",
     "babel-preset-es2015": "^6.1.4",
     "babel-preset-react": "^6.1.4",
+    "babel-register": "^6.3.13",
     "express": "^4.13.3",
     "he": "^0.5.0",
     "history": "1.17.x",
