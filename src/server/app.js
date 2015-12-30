@@ -4,10 +4,10 @@ import ReactDOMServer from 'react-dom/server'
 import createLocation from 'history/lib/createLocation'
 import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
 import reducer from '../reducers'
 import routes from '../routes'
 import views from './views'
+import { createStoreWithMiddleware } from '../utils'
 
 const app = express()
 
@@ -29,13 +29,26 @@ app.all('*', (req, res, next) => {
       const pageContent = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />)
       return res.status(404).send(views.page('Not found', pageContent))
     }
-    const store = createStore(reducer)
-    const pageContent = ReactDOMServer.renderToString(
-      <Provider store={store}>
-        <RoutingContext {...renderProps} />
-      </Provider>
-    )
-    res.send(views.page('Hello world!', pageContent))
+
+    const store = createStoreWithMiddleware(reducer)
+
+    const dataPs = renderProps.components
+      .filter(c => typeof c.loadData === 'function')
+      .map(c => c.loadData())
+      .reduce((acc, cur) => acc.concat(cur), [])
+      .map(action => store.dispatch(action))
+
+    Promise.all(dataPs).then(() => {
+      const initialState = store.getState()
+      const initialStateView = views.script({
+        content: JSON.stringify(initialState), type: 'application/json', id: 'initial-state' })
+      const pageContent = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <RoutingContext {...renderProps} />
+        </Provider>
+      )
+      res.send(views.page('Hello world!', pageContent, { extraBody: initialStateView }))
+    }).catch(next)
   })
 })
 

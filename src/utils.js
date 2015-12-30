@@ -1,3 +1,5 @@
+import { applyMiddleware, createStore } from 'redux'
+import thunk from 'redux-thunk'
 
 export function checkResponseStatus (response) {
   if (response.status >= 200 && response.status < 300) {
@@ -8,3 +10,7 @@ export function checkResponseStatus (response) {
     throw error
   }
 }
+
+export const createStoreWithMiddleware = applyMiddleware(
+  thunk
+)(createStore)

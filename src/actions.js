@@ -9,7 +9,7 @@ export const setLuckyNumber = (luckyNumber) => ({
 })
 
 export const fetchNewQuote = () => dispatch => {
-  fetch('http://api.icndb.com/jokes/random')
+  return fetch('http://api.icndb.com/jokes/random')
     .then(checkResponseStatus)
     .then(res => res.json())
     .then(jokeRes => {
